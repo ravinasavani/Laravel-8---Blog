@@ -30,55 +30,43 @@ class Blog extends Model
 
     public function addBlog($data = array())
     {
-        $table = 'blog';
-        $data = array(
-            'title' => 'Test',
-            'description' => 'test'
-        );
-        
-        return DB::table("$table")->insert($data);
-        // $blog = new Blog();
-        // $blog->title = $data['title'];
-        // $blog->description = $data['description'];
-        // $blog->user_id = $data['user_id'];
-        // if($blog->save())
-        // {
-        //     return $blog;
-        // }
-        // return false;
+        // $table = 'blog';
+        // $data = array(
+        //     'title' => 'Test',
+        //     'description' => 'test'
+        // );
+
+        // return DB::table("$table")->insert($data);
+        $blog = new Blog();
+        $blog->title = $data['title'];
+        $blog->description = $data['description'];
+        $blog->user_id = $data['user_id'];
+        if ($blog->save()) {
+            return $blog;
+        }
+        return false;
     }
 
     public function editBlog($data, $id)
     {
-        // $table = "blog";
-        // $cluster = array(
-        //     'title' => 'Default',
-        //     'description' => 'default'
-        // );
-        // $id = "id = 10";
-        // $id = explode(" = ",$id);
-        // return DB::table("$table")->where($id[0],$id[1])->update($cluster);
-        // dd($args);   
-
         $updBlog = Blog::where('id', $id)->update([
             'title' =>  $data['title'],
             'description' => $data['description']
         ]);
-        if($updBlog)
-        {
+        if ($updBlog) {
             return $updBlog;
         }
-        return false;   
+        return false;
     }
 
     public function deleteBlog($id)
-    {        
-        $table = 'blog';
-        $arrId = array('id' => 10);
-        $col_name = key($arrId);
-        $col_val = $arrId[$col_name];
-        return DB::table("$table")->where($col_name, "=", $col_val)->delete();
-        
-        // return $this->where('id', '=', $id)->delete();
-    }  
+    {
+        // $table = 'blog';
+        // $arrId = array('id' => 10);
+        // $col_name = key($arrId);
+        // $col_val = $arrId[$col_name];
+        // return DB::table("$table")->where($col_name, "=", $col_val)->delete();
+
+        return $this->where('id', '=', $id)->delete();
+    }
 }
